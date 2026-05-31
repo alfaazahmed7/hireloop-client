@@ -1,10 +1,22 @@
 "use client";
 
+import { authClient } from "@/lib/auth-client";
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 const Navbar = () => {
     const [open, setOpen] = useState(false);
+
+    const userData = authClient.useSession();
+    const user = userData.data?.user;
+    const isPending = userData.isPending;
+
+    const handleSignOut = async () => {
+        await authClient.signOut();
+        toast.success('You have successfully sign out');
+    }
 
     return (
         <nav className="w-full bg-[#0B0B0F] border-b border-white/5 relative z-50">
@@ -66,19 +78,44 @@ const Navbar = () => {
 
                             <div className="w-[1px] h-6 bg-white/10 mx-2" />
 
-                            <Link
-                                href="/login"
-                                className="text-[#7C5CFF] text-sm font-semibold px-5 py-3 rounded-xl hover:bg-[#7C5CFF]/10 transition-all duration-300"
-                            >
-                                Sign In
-                            </Link>
-
-                            <Link
-                                href="/register"
-                                className="bg-[#F5F5F7] text-[#0B0B0F] text-sm font-semibold px-6 py-3 rounded-xl hover:bg-white transition-all duration-300"
-                            >
-                                Get Started
-                            </Link>
+                            {
+                                isPending ?
+                                    <span className="loading loading-spinner loading-xl"></span>
+                                    : user ? (
+                                        <div className="flex items-center gap-3">
+                                            <div className="avatar">
+                                                <div className="w-8 rounded">
+                                                    <Image
+                                                        alt={user?.name}
+                                                        src={user?.image}
+                                                        fill
+                                                    />
+                                                </div>
+                                            </div>
+                                            <button
+                                                onClick={handleSignOut}
+                                                className="bg-slate-700 text-white px-6 py-2 rounded-lg border-b-4 border-slate-800 transition-all duration-200 hover:brightness-110 hover:-translate-y-[1px] active:border-b-2 active:translate-y-[2px] cursor-pointer"
+                                            >
+                                                Sign Out
+                                            </button>
+                                        </div>
+                                    ) : (
+                                        <div>
+                                            <Link
+                                                href="/sign-in"
+                                                className="text-[#7C5CFF] text-sm font-semibold px-5 py-3 rounded-xl hover:bg-[#7C5CFF]/10 transition-all duration-300"
+                                            >
+                                                Sign In
+                                            </Link>
+                                            <Link
+                                                href="/sign-up"
+                                                className="bg-[#F5F5F7] text-[#0B0B0F] text-sm font-semibold px-4 py-3 rounded-xl hover:bg-white transition text-center"
+                                            >
+                                                Get Started
+                                            </Link>
+                                        </div>
+                                    )
+                            }
                         </div>
                     </div>
 
@@ -156,19 +193,44 @@ const Navbar = () => {
 
                         <div className="w-full h-[1px] bg-white/10 my-2" />
 
-                        <Link
-                            href="/login"
-                            className="text-[#7C5CFF] text-sm font-semibold px-4 py-3 rounded-xl hover:bg-[#7C5CFF]/10 transition"
-                        >
-                            Sign In
-                        </Link>
-
-                        <Link
-                            href="/register"
-                            className="bg-[#F5F5F7] text-[#0B0B0F] text-sm font-semibold px-4 py-3 rounded-xl hover:bg-white transition text-center"
-                        >
-                            Get Started
-                        </Link>
+                        {
+                            isPending ?
+                                <span className="loading loading-spinner loading-xl"></span>
+                                : user ? (
+                                    <div className="flex items-center gap-3">
+                                        <div className="avatar">
+                                            <div className="w-8 rounded">
+                                                <Image
+                                                    alt={user?.name}
+                                                    src={user?.image}
+                                                    fill
+                                                />
+                                            </div>
+                                        </div>
+                                        <button
+                                            onClick={handleSignOut}
+                                            className="bg-slate-700 text-white px-6 py-2 rounded-lg border-b-4 border-slate-800 transition-all duration-200 hover:brightness-110 hover:-translate-y-[1px] active:border-b-2 active:translate-y-[2px] cursor-pointer"
+                                        >
+                                            Sign Out
+                                        </button>
+                                    </div>
+                                ) : (
+                                    <div>
+                                        <Link
+                                            href="/sign-in"
+                                            className="text-[#7C5CFF] text-sm font-semibold px-5 py-3 rounded-xl hover:bg-[#7C5CFF]/10 transition-all duration-300"
+                                        >
+                                            Sign In
+                                        </Link>
+                                        <Link
+                                            href="/sign-up"
+                                            className="bg-[#F5F5F7] text-[#0B0B0F] text-sm font-semibold px-4 py-3 rounded-xl hover:bg-white transition text-center"
+                                        >
+                                            Get Started
+                                        </Link>
+                                    </div>
+                                )
+                        }
                     </div>
                 </div>
             </div>
