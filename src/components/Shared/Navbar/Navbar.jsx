@@ -12,6 +12,7 @@ const Navbar = () => {
     const userData = authClient.useSession();
     const user = userData.data?.user;
     const isPending = userData.isPending;
+    console.log(user, 'user');
 
     const handleSignOut = async () => {
         await authClient.signOut();

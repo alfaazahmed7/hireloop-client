@@ -1,18 +1,18 @@
 "use client";
 
-import { useState } from "react";
+import { authClient } from "@/lib/auth-client";
 import Link from "next/link";
+import { redirect } from "next/navigation";
+import { useState } from "react";
+import toast from "react-hot-toast";
 import {
-    FaUser,
     FaEnvelope,
-    FaImage,
-    FaLock,
     FaEye,
     FaEyeSlash,
+    FaImage,
+    FaLock,
+    FaUser,
 } from "react-icons/fa";
-import { authClient } from "@/lib/auth-client";
-import toast from "react-hot-toast";
-import { redirect } from "next/navigation";
 
 const SignUpPage = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -41,13 +41,16 @@ const SignUpPage = () => {
 
         const formData = new FormData(e.currentTarget);
         const user = Object.fromEntries(formData.entries());
+        // console.log(user, 'user');
 
         const { data, error } = await authClient.signUp.email({
             name: user.name,
             email: user.email,
             image: user.image,
-            password: user.password
+            password: user.password,
+            role: user.role
         });
+        // console.log(data, error, 'd-e');
 
         if (data) {
             toast.success(`You have successfully register to HireLoop`);
@@ -191,6 +194,47 @@ const SignUpPage = () => {
                                 one uppercase letter, one lowercase letter,
                                 one number, and one special character.
                             </p>
+                        </div>
+
+                        {/* Role Section */}
+                        <div className="flex flex-col gap-4 text-white">
+                            <label className="text-white text-sm font-medium">Your Role</label>
+                            <div className="flex gap-4">
+
+                                {/* Job Seeker */}
+                                <label className="cursor-pointer">
+                                    <input
+                                        type="radio"
+                                        name="role"
+                                        value="seeker"
+                                        defaultChecked
+                                        className="hidden peer"
+                                    />
+
+                                    <div className="group flex items-center gap-3 px-4 py-2 rounded-xl border border-white/20 bg-white/5 hover:bg-white/10 hover:border-white/40 transition peer-checked:bg-primary/20 peer-checked:border-primary peer-checked:ring-2 peer-checked:ring-primary/40">
+                                        <div className="w-4 h-4 rounded-full border-2 border-white/60 flex items-center justify-center transition group-peer-checked:border-primary group-peer-checked:bg-primary">
+                                            <div className="w-2 h-2 rounded-full bg-white scale-0 group-peer-checked:scale-100 transition" />
+                                        </div>
+                                        <span className="text-sm font-medium">Job Seeker</span>
+                                    </div>
+                                </label>
+
+                                {/* Recruiter */}
+                                <label className="cursor-pointer">
+                                    <input
+                                        type="radio"
+                                        name="role"
+                                        value="recruiter"
+                                        className="hidden peer"
+                                    />
+                                    <div className="group flex items-center gap-3 px-4 py-2 rounded-xl border border-white/20 bg-white/5 hover:bg-white/10 hover:border-white/40 transition peer-checked:bg-primary/20 peer-checked:border-primary peer-checked:ring-2 peer-checked:ring-primary/40">
+                                        <div className="w-4 h-4 rounded-full border-2 border-white/60 flex items-center justify-center transition group-peer-checked:border-primary group-peer-checked:bg-primary">
+                                            <div className="w-2 h-2 rounded-full bg-white scale-0 group-peer-checked:scale-100 transition" />
+                                        </div>
+                                        <span className="text-sm font-medium">Recruiter</span>
+                                    </div>
+                                </label>
+                            </div>
                         </div>
 
                         {/* Submit Button */}

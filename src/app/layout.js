@@ -1,8 +1,8 @@
-import { Outfit } from "next/font/google";
-import "./globals.css";
-import Navbar from "@/components/Shared/Navbar/Navbar";
 import Footer from "@/components/Shared/Footer/Footer";
+import Navbar from "@/components/Shared/Navbar/Navbar";
+import { Outfit } from "next/font/google";
 import { Toaster } from "react-hot-toast";
+import "./globals.css";
 
 const outfitFont = Outfit({
   subsets: ["latin"],
