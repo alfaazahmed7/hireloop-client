@@ -37,7 +37,7 @@ export function DashboardSidebar() {
                     Menu
                 </Button>
                 <Drawer.Backdrop>
-                    <Drawer.Content placement="left">
+                    <Drawer.Content placement="left" className="z-50">
                         <Drawer.Dialog className="bg-[#131314]">
                             <Drawer.CloseTrigger />
                             <Drawer.Header>

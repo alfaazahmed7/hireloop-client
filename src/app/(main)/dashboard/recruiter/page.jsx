@@ -3,6 +3,8 @@ import { DashboardStats } from '@/components/dashboard/DashboardStats';
 import { useSession } from '@/lib/auth-client';
 import React from 'react';
 import { Briefcase, Persons, Thunderbolt, CircleCheck } from '@gravity-ui/icons';
+import DashboardApplications from '@/components/dashboard/DashboardApplications';
+import DashboardCompanies from '@/components/dashboard/DashboardCompanies';
 
 const RecruiterDashboardHomapage = () => {
     const { data: session, isPending } = useSession();
@@ -20,12 +22,18 @@ const RecruiterDashboardHomapage = () => {
     ];
 
     return (
-        <div className=''>
-            <div className='w-full max-w-[1500px] mx-auto px-4 pt-8'>
+        <div className='w-full max-w-[1500px] mx-auto'>
+            <div className='px-4 pt-8'>
                 <h2 className='text-2xl font-semibold'>Welcome back, {user?.name}</h2>
             </div>
             <div>
-                <DashboardStats statsData={recruiterStats} />
+                <div className='mb-10'>
+                    <DashboardStats statsData={recruiterStats} />
+                </div>
+                <div className='grid grid-cols-1 xl:grid-cols-3 gap-6'>
+                    <DashboardApplications />
+                    <DashboardCompanies />
+                </div>
             </div>
         </div>
     );
