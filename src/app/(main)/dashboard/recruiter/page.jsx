@@ -1,10 +1,10 @@
 'use client'
-import { DashboardStats } from '@/components/dashboard/DashboardStats';
 import { useSession } from '@/lib/auth-client';
 import React from 'react';
 import { Briefcase, Persons, Thunderbolt, CircleCheck } from '@gravity-ui/icons';
-import DashboardApplications from '@/components/dashboard/DashboardApplications';
-import DashboardCompanies from '@/components/dashboard/DashboardCompanies';
+import DashboardApplications from '@/components/dashboard/recruiter-dashboard/DashboardApplications';
+import DashboardCompanies from '@/components/dashboard/recruiter-dashboard/DashboardCompanies';
+import { DashboardStats } from '@/components/dashboard/recruiter-dashboard/DashboardStats';
 
 const RecruiterDashboardHomapage = () => {
     const { data: session, isPending } = useSession();
