@@ -1,10 +1,11 @@
 import JobsTable from '@/components/dashboard/recruiter-dashboard/JobsTable';
+import { getLoggedInRecruiterCompany } from '@/lib/api/companies';
 import { getCompanyJobs } from '@/lib/api/jobs';
 import React from 'react';
 
 const RecruiterJobs = async () => {
-    const companyId = 'company_123'; //todo
-    const jobs = await getCompanyJobs(companyId) || [];
+    const company = await getLoggedInRecruiterCompany();
+    const jobs = await getCompanyJobs(company._id) || [];
 
     return (
         // Canvas Background: Fixed deep charcoal layout background (#111317)
