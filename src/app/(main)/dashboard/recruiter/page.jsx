@@ -24,7 +24,7 @@ const RecruiterDashboardHomapage = () => {
     return (
         <div className='w-full max-w-[1500px] mx-auto'>
             <div className='px-4 pt-8'>
-                <h2 className='text-2xl font-semibold'>Welcome back, {user?.name}</h2>
+                <h2 className='text-2xl text-white font-semibold'>Welcome back, {user?.name}</h2>
             </div>
             <div>
                 <div className='mb-10'>
