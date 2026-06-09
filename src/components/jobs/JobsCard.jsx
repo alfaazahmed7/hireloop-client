@@ -2,8 +2,10 @@ import React from 'react';
 import { HiOutlineLocationMarker, HiOutlineBriefcase } from 'react-icons/hi';
 import { FiArrowUpRight } from 'react-icons/fi';
 import { BiDollarCircle } from 'react-icons/bi';
+import Link from 'next/link';
 
 const JobCard = ({ job }) => {
+    console.log(job, 'job');
     const {
         jobTitle,
         responsibilities,
@@ -86,10 +88,12 @@ const JobCard = ({ job }) => {
 
                 {/* Apply Button */}
                 <div className="pt-2 border-t border-neutral-900">
-                    <button className="flex items-center gap-1.5 text-sm font-semibold text-white hover:text-neutral-300 transition-colors group/btn">
+                    <Link
+                        href={`/jobs/${job._id}`}
+                        className="flex items-center gap-1.5 text-sm font-semibold text-white hover:text-neutral-300 transition-colors group/btn">
                         <span>Apply Now</span>
                         <FiArrowUpRight className="text-base transform group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform duration-200" />
-                    </button>
+                    </Link>
                 </div>
             </div>
 
