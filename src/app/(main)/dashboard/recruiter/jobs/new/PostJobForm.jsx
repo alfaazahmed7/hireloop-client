@@ -7,7 +7,7 @@ import { createJob } from "@/lib/actions/jobs";
 import { redirect } from "next/navigation";
 
 export default function PostJobForm({ company }) {
-    console.log(company, 'company');
+    // console.log(company, 'company');
 
     // const [mockCompany] = useState({
     //     name: "Acme Corp (Auto-filled)",

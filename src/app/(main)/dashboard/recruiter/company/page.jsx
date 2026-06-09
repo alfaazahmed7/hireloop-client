@@ -6,12 +6,13 @@ import { getRecruiterCompany } from '@/lib/api/companies';
 const CompanyPage = async () => {
     const user = await getUserSession();
     const company = await getRecruiterCompany(user?.id);
+    console.log(user, company, 'usercompany');
 
     return (
         <div>
             <CompanyProfile
-                recruiter={user}
-                recruiterCompany={company}
+            recruiter={user}
+            recruiterCompany={company}
             />
         </div>
     );

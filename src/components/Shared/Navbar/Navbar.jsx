@@ -64,7 +64,7 @@ const Navbar = () => {
                             </Link>
 
                             <Link
-                                href="/company"
+                                href="/dashboard/recruiter"
                                 className="text-[#D1D1D6] text-sm font-medium px-5 py-3 rounded-xl hover:bg-white/5 transition-all duration-300"
                             >
                                 Company
@@ -176,7 +176,7 @@ const Navbar = () => {
                         </Link>
 
                         <Link
-                            href="/company"
+                            href="/dashboard/recruiter"
                             className="text-[#D1D1D6] text-sm font-medium px-4 py-3 rounded-xl hover:bg-white/5 transition"
                         >
                             Company
