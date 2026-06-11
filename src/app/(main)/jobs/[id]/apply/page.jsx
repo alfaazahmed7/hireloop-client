@@ -9,6 +9,7 @@ import JobApplyDetailsPage from './JobApply';
 const JobApplyPage = async ({ params }) => {
     const { id } = await params;
     const user = await getUserSession();
+    // console.log(user, 'user');
 
     if (!user) {
         redirect(`/sign-in?redirect=/jobs/${id}/apply`);
@@ -38,11 +39,13 @@ const JobApplyPage = async ({ params }) => {
     }
 
     const job = await getJobsById(id);
-    console.log(job, 'job');
+    // console.log(job, 'job');
 
     return (
         <div>
-            <JobApplyDetailsPage job={job} />
+            <JobApplyDetailsPage
+                applicant={user}
+                job={job} />
         </div>
     );
 };
