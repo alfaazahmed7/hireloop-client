@@ -5,11 +5,15 @@ import Link from "next/link";
 import { FaEnvelope, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
 import { authClient } from "@/lib/auth-client";
 import toast from "react-hot-toast";
-import { redirect } from "next/navigation";
+import { redirect, useRouter, useSearchParams } from "next/navigation";
 
 const SignInPage = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [passwordError, setPasswordError] = useState("");
+
+    const router = useRouter();
+    const searchParams = useSearchParams();
+    const redirectTo = searchParams.get('redirect') || '/';
 
     const handlePasswordChange = (e) => {
         const value = e.target.value;
@@ -42,7 +46,7 @@ const SignInPage = () => {
 
         if (data) {
             toast.success('Welcome Back! You have successfully sign in');
-            redirect('/');
+            router.push(redirectTo);
         }
 
         if (error) {
@@ -139,7 +143,7 @@ const SignInPage = () => {
                     <p className="text-center text-zinc-400 mt-6">
                         Don’t have an account?{" "}
                         <Link
-                            href="/sign-up"
+                            href={`/sign-up?redirect=${redirectTo}`}
                             className="text-blue-500 hover:text-blue-400 font-medium"
                         >
                             Sign Up

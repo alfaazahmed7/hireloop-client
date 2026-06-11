@@ -2,7 +2,7 @@
 
 import { authClient } from "@/lib/auth-client";
 import Link from "next/link";
-import { redirect } from "next/navigation";
+import { redirect, useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import {
@@ -17,6 +17,10 @@ import {
 const SignUpPage = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [passwordError, setPasswordError] = useState("");
+
+    const router = useRouter();
+    const searchParams = useSearchParams();
+    const redirectTo = searchParams.get('redirect') || '/';
 
     const handlePasswordChange = (e) => {
         const value = e.target.value;
@@ -54,7 +58,7 @@ const SignUpPage = () => {
 
         if (data) {
             toast.success(`You have successfully register to HireLoop`);
-            redirect('/sign-in');
+            router.push(redirectTo);
         }
 
         if (error) {

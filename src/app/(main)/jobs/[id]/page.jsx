@@ -13,6 +13,7 @@ import { FiCheckCircle, FiGift, FiShield } from 'react-icons/fi';
 const JobsDetailsPage = async ({ params }) => {
     const { id } = await params;
     const job = await getJobsById(id);
+    console.log(job, 'job');
 
     if (!job) {
         return (
@@ -179,9 +180,12 @@ const JobsDetailsPage = async ({ params }) => {
                         )}
 
                         {/* Submit Action Application Form Button */}
-                        <button className="w-full py-3.5 bg-white text-black font-bold rounded-xl text-sm hover:bg-neutral-200 active:scale-[0.99] transition-all">
+                        <Link
+                            href={`/jobs/${job._id}/apply`}
+                            className="block w-full py-3.5 bg-white text-black font-bold rounded-xl text-sm hover:bg-neutral-200 active:scale-[0.99] transition-all text-center"
+                        >
                             Apply for this job
-                        </button>
+                        </Link>
 
                         <p className="text-center text-xs text-gray-500 font-light px-4">
                             By applying, your profile credentials will be instantly routed securely straight to the hiring ecosystem at {companyName}.
