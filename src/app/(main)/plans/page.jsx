@@ -205,14 +205,21 @@ export default function PricingPage() {
                         </div>
 
                         {/* Action Button */}
-                        <button
-                            className={`w-full py-3.5 px-4 rounded-xl font-semibold text-sm tracking-wide transition-all duration-200 ${plan.popular
-                                ? "bg-gradient-to-r from-emerald-500 to-teal-500 text-slate-950 hover:opacity-90 shadow-lg shadow-emerald-500/10"
-                                : "bg-slate-800 text-slate-200 hover:bg-slate-700 border border-slate-700/50"
-                                }`}
-                        >
-                            {plan.buttonText}
-                        </button>
+                        <form action="/api/checkout_sessions" method="POST" className="w-full">
+                            {/* Hidden input to tell your backend which plan was selected */}
+                            <input type="hidden" name="planName" value={plan.name} />
+                            <input type="hidden" name="userType" value={activeTab} /> {/* "seekers" or "recruiters" */}
+
+                            <button
+                                type="submit"
+                                className={`w-full py-3.5 px-4 rounded-xl font-semibold text-sm tracking-wide transition-all duration-200 cursor-pointer text-center block ${plan.popular
+                                        ? "bg-gradient-to-r from-emerald-500 to-teal-500 text-slate-950 hover:opacity-90 shadow-lg shadow-emerald-500/10 font-bold"
+                                        : "bg-slate-800 text-slate-200 hover:bg-slate-700 border border-slate-700/50"
+                                    }`}
+                            >
+                                {plan.buttonText}
+                            </button>
+                        </form>
                     </div>
                 ))}
             </div>
