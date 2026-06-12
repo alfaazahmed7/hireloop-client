@@ -5,6 +5,7 @@ import { redirect } from 'next/navigation';
 import React from 'react';
 import { BsShieldExclamation } from 'react-icons/bs';
 import JobApplyDetailsPage from './JobApply';
+import { getApplicationByApplicant } from '@/lib/api/applications';
 
 const JobApplyPage = async ({ params }) => {
     const { id } = await params;
@@ -39,13 +40,44 @@ const JobApplyPage = async ({ params }) => {
     }
 
     const job = await getJobsById(id);
-    // console.log(job, 'job');
+
+    const applications = await getApplicationByApplicant(user.id);
+    const plan = {
+        name: 'Free',
+        maxApplicationsPerMonth: 3
+    }
 
     return (
         <div>
-            <JobApplyDetailsPage
-                applicant={user}
-                job={job} />
+            <div className='bg-[#010103] flex justify-end pt-4 pr-10'>
+                <div className="mb-6 inline-flex items-center gap-2 rounded-2xl border border-indigo-100 bg-gradient-to-r from-indigo-50 via-white to-purple-50 px-6 py-4 shadow-sm">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-indigo-100 text-indigo-600 font-bold">
+                        {applications.length}
+                    </div>
+
+                    <h2 className="text-lg font-semibold text-gray-800">
+                        You have applied to{" "}
+                        <span className="text-indigo-600">
+                            {applications.length}
+                        </span>{" "}
+                        out of{" "}
+                        <span className="text-purple-600">
+                            {plan.maxApplicationsPerMonth}
+                        </span>{" "}
+                        applications this month
+                    </h2>
+                </div>
+            </div>
+
+            {/* <p>Purchase plan to apply for more positions.
+                <Link href={`/plan`}>Plans</Link>
+            </p> */}
+
+            {applications.length < plan.maxApplicationsPerMonth && (
+                <JobApplyDetailsPage
+                    applicant={user}
+                    job={job} />
+            )}
         </div>
     );
 };
