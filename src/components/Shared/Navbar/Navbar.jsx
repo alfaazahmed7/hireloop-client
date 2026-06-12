@@ -71,7 +71,7 @@ const Navbar = () => {
                             </Link>
 
                             <Link
-                                href="/pricing"
+                                href="/plans"
                                 className="text-[#D1D1D6] text-sm font-medium px-5 py-3 rounded-xl hover:bg-white/5 transition-all duration-300"
                             >
                                 Pricing
@@ -183,7 +183,7 @@ const Navbar = () => {
                         </Link>
 
                         <Link
-                            href="/pricing"
+                            href="/plans"
                             className="text-[#D1D1D6] text-sm font-medium px-4 py-3 rounded-xl hover:bg-white/5 transition"
                         >
                             Pricing
