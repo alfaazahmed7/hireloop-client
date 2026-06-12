@@ -15,6 +15,7 @@ export default function PricingPage() {
     const seekerPlans = [
         {
             name: "Free",
+            id: 'seeker_free',
             price: "$0",
             period: "forever",
             desc: "Perfect for getting started and exploring available positions.",
@@ -29,6 +30,7 @@ export default function PricingPage() {
         },
         {
             name: "Pro",
+            id: 'seeker_pro',
             price: "$19",
             period: "month",
             desc: "Accelerate your search with tracking tools and insights.",
@@ -43,6 +45,7 @@ export default function PricingPage() {
         },
         {
             name: "Premium",
+            id: 'seeker_premium',
             price: "$39",
             period: "month",
             desc: "Maximum visibility and direct advantages over other applicants.",
@@ -61,6 +64,7 @@ export default function PricingPage() {
     const recruiterPlans = [
         {
             name: "Free",
+            id: 'recruiter_free',
             price: "$0",
             period: "forever",
             desc: "Great for a company's first year of organic hiring.",
@@ -74,6 +78,7 @@ export default function PricingPage() {
         },
         {
             name: "Growth",
+            id: 'recruiter_growth',
             price: "$49",
             period: "month",
             desc: "Designed for scaling teams looking for efficient tracking.",
@@ -88,6 +93,7 @@ export default function PricingPage() {
         },
         {
             name: "Enterprise",
+            id: 'recruiter_enterprise',
             price: "$149",
             period: "month",
             desc: "Robust pipelines for high-volume hiring demands.",
@@ -207,7 +213,7 @@ export default function PricingPage() {
                         {/* Action Button */}
                         <form action="/api/checkout_sessions" method="POST" className="w-full">
                             {/* Hidden input to tell your backend which plan was selected */}
-                            <input type="hidden" name="planName" value={plan.name} />
+                            <input type="hidden" name="plan_id" value={plan.id} />
                             <input type="hidden" name="userType" value={activeTab} /> {/* "seekers" or "recruiters" */}
 
                             <button
