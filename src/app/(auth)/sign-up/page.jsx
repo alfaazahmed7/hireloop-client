@@ -45,6 +45,7 @@ const SignUpPage = () => {
 
         const formData = new FormData(e.currentTarget);
         const user = Object.fromEntries(formData.entries());
+        const plan = user.role === 'seeker' ? 'seeker_free' : 'recruiter_free';
         // console.log(user, 'user');
 
         const { data, error } = await authClient.signUp.email({
@@ -52,9 +53,10 @@ const SignUpPage = () => {
             email: user.email,
             image: user.image,
             password: user.password,
-            role: user.role
+            role: user.role,
+            plan,
         });
-        // console.log(data, error, 'd-e');
+        console.log(data, error, 'd-e');
 
         if (data) {
             toast.success(`You have successfully register to HireLoop`);
@@ -64,7 +66,7 @@ const SignUpPage = () => {
         if (error) {
             toast.error(`Error signing up: ` + error.message);
         }
-        console.log(data, error, 'd-e');
+        // console.log(data, error, 'd-e');
     };
 
     return (

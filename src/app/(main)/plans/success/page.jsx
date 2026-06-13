@@ -2,6 +2,7 @@ import { redirect } from 'next/navigation';
 import Link from 'next/link';
 import { FaCircleCheck, FaEnvelope, FaHouse, FaArrowRight } from 'react-icons/fa6';
 import { stripe } from '@/lib/stripe';
+import { createSubscription } from '@/lib/actions/subscriptions';
 
 export default async function Success({ searchParams }) {
     const { session_id } = await searchParams;
@@ -12,7 +13,8 @@ export default async function Success({ searchParams }) {
 
     const {
         status,
-        customer_details
+        customer_details,
+        metadata
     } = await stripe.checkout.sessions.retrieve(session_id, {
         expand: ['line_items', 'payment_intent']
     });
@@ -24,6 +26,15 @@ export default async function Success({ searchParams }) {
     }
 
     if (status === 'complete') {
+        const subsInfo = {
+            email: customerEmail,
+            planId: metadata.planId,
+        }
+
+        // update the user table about the new plan
+        const result = await createSubscription(subsInfo);
+        console.log(result);
+
         return (
             <div className="min-h-screen bg-slate-950 text-slate-100 flex items-center justify-center p-4 sm:p-6 lg:p-8">
                 {/* Decorative background glow sparks */}

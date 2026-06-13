@@ -6,6 +6,7 @@ import React from 'react';
 import { BsShieldExclamation, BsLightningCharge, BsCheckCircle } from 'react-icons/bs';
 import JobApplyDetailsPage from './JobApply';
 import { getApplicationByApplicant } from '@/lib/api/applications';
+import { getPlanById } from '@/lib/api/plans';
 
 const JobApplyPage = async ({ params }) => {
     const { id } = await params;
@@ -39,25 +40,22 @@ const JobApplyPage = async ({ params }) => {
     }
 
     const job = await getJobsById(id);
-    const applications = await getApplicationByApplicant(user.id);
+    const applications = await getApplicationByApplicant(user?.id);
+    // console.log(applications, 'applications');
 
-    const plan = {
-        name: 'Free',
-        maxApplicationsPerMonth: 3
-    };
-
+    const plan = await getPlanById(user?.plan || 'seeker_free');
     const hasReachedLimit = applications.length >= plan.maxApplicationsPerMonth;
 
     return (
-        <div className="min-h-screen bg-[#09090b] text-zinc-100 py-10 px-4 sm:px-6 lg:px-8">
+        <div className="min-h-screen bg-[#010103] text-zinc-100 py-10 px-4 sm:px-6 lg:px-8">
             <div className="max-w-4xl mx-auto space-y-8">
 
                 {/* Application Counter Banner */}
                 <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-6 rounded-2xl bg-zinc-900 border border-zinc-800 shadow-lg">
                     <div className="flex items-center gap-4">
                         <div className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl font-bold text-lg shadow-inner ${hasReachedLimit
-                                ? 'bg-red-500/10 text-red-400 border border-red-500/20'
-                                : 'bg-indigo-500/10 text-indigo-400 border border-indigo-500/20'
+                            ? 'bg-red-500/10 text-red-400 border border-red-500/20'
+                            : 'bg-indigo-500/10 text-indigo-400 border border-indigo-500/20'
                             }`}>
                             {applications.length}
                         </div>
@@ -93,7 +91,7 @@ const JobApplyPage = async ({ params }) => {
                         </p>
                         <div className="flex flex-col sm:flex-row gap-3 justify-center">
                             <Link
-                                href="/plan"
+                                href="/plans"
                                 className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-sm font-semibold shadow-lg shadow-indigo-600/20 transition-all duration-200 hover:-translate-y-0.5"
                             >
                                 <BsLightningCharge className="w-4 h-4" />
@@ -103,7 +101,7 @@ const JobApplyPage = async ({ params }) => {
                     </div>
                 ) : (
                     /* Render Application Form Container */
-                    <div className="bg-zinc-900/50 border border-zinc-800/80 rounded-2xl p-6 sm:p-8 backdrop-blur-sm shadow-xl">
+                    <div>
                         <JobApplyDetailsPage
                             applicant={user}
                             job={job}
