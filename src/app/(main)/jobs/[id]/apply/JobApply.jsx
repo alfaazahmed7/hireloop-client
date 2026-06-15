@@ -37,10 +37,12 @@ export default function JobApplyDetailsPage({ applicant, job }) {
         // Simulate API Call
         const submissionData = {
             jobId: job?._id,
+            jobTitle: job?.jobTitle,
             applicantId: applicant?.id,
             companyName: job?.companyName,
             applicantName: applicant?.name,
             applicantEmail: applicant?.email,
+            status: 'applied',
             ...formData,
         };
         // console.log(submissionData, 'submission data');
