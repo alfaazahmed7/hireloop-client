@@ -13,7 +13,7 @@ export default function UnauthorizedPage() {
     };
 
     const handleLogin = () => {
-        window.location.href = '/login';
+        window.location.href = '/sign-in';
     };
 
     return (

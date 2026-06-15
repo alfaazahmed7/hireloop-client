@@ -10,6 +10,11 @@ import {
     LuCreditCard,
     LuSettings
 } from "react-icons/lu";
+import {
+    LuUsers,
+    LuBuilding2,
+    LuBriefcase,
+} from "react-icons/lu";
 
 export async function DashboardSidebar() {
     const recruiterNavLinks = [
@@ -31,9 +36,19 @@ export async function DashboardSidebar() {
         { icon: LuSettings, href: '/dashboard/seeker/settings', label: "Settings" },
     ];
 
+    const adminNavLinks = [
+        { icon: LuLayoutDashboard, href: '/dashboard/admin', label: "Dashboard" },
+        { icon: LuUsers, href: '/dashboard/admin/users', label: "Users" },
+        { icon: LuBuilding2, href: '/dashboard/admin/companies', label: "Companies" },
+        { icon: LuBriefcase, href: '/dashboard/admin/jobs', label: "Jobs" },
+        { icon: LuCreditCard, href: '/dashboard/admin/payments', label: "Payments" },
+        { icon: LuSettings, href: '/dashboard/admin/settings', label: "Settings" },
+    ];
+
     const navLinkMap = {
         seeker: seekerNavLinks,
         recruiter: recruiterNavLinks,
+        admin: adminNavLinks,
     }
 
     const user = await getUserSession();
