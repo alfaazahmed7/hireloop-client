@@ -1,9 +1,18 @@
+import { getUserSession } from "@/lib/core/session";
 import { Bars, Bell, Envelope, Gear, House, Magnifier, Briefcase, Person } from "@gravity-ui/icons";
 import { Button, Drawer } from "@heroui/react";
 import Link from "next/link";
+import {
+    LuLayoutDashboard,
+    LuSearch,
+    LuBookmark,
+    LuFileText,
+    LuCreditCard,
+    LuSettings
+} from "react-icons/lu";
 
-export function DashboardSidebar() {
-    const navItems = [
+export async function DashboardSidebar() {
+    const recruiterNavLinks = [
         { icon: House, href: '/dashboard/recruiter', label: "Home" },
         { icon: Magnifier, href: '/dashboard/recruiter/jobs', label: "Jobs" },
         { icon: Bell, href: '/dashboard/recruiter/jobs/new', label: "Create Job" },
@@ -12,6 +21,24 @@ export function DashboardSidebar() {
         { icon: Person, href: '/profile', label: "Profile" },
         { icon: Gear, href: '/settings', label: "Settings" },
     ];
+
+    const seekerNavLinks = [
+        { icon: LuLayoutDashboard, href: '/dashboard/seeker', label: "Dashboard" },
+        { icon: LuSearch, href: '/dashboard/seeker/jobs', label: "Jobs" },
+        { icon: LuBookmark, href: '/dashboard/seeker/saved', label: "Saved Jobs" },
+        { icon: LuFileText, href: '/dashboard/seeker/applications', label: "Applications" },
+        { icon: LuCreditCard, href: '/dashboard/seeker/billing', label: "Billing" },
+        { icon: LuSettings, href: '/dashboard/seeker/settings', label: "Settings" },
+    ];
+
+    const navLinkMap = {
+        seeker: seekerNavLinks,
+        recruiter: recruiterNavLinks,
+    }
+
+    const user = await getUserSession();
+
+    const navItems = navLinkMap[user?.role || 'seeker'];
 
     const navContent =
         <nav className="flex flex-col gap-1">

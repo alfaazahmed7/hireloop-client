@@ -19,6 +19,11 @@ const Navbar = () => {
         toast.success('You have successfully sign out');
     }
 
+    const dashboardLinks = {
+        seeker: '/dashboard/seeker',
+        recruiter: '/dashboard/recruiter'
+    }
+
     return (
         <nav className="w-full bg-[#0B0B0F] border-b border-white/5 relative z-50">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -76,6 +81,15 @@ const Navbar = () => {
                             >
                                 Pricing
                             </Link>
+
+                            {user?.email &&
+                                <Link
+                                    href={`${dashboardLinks[user?.role || 'seeker']}`}
+                                    className="text-[#D1D1D6] text-sm font-medium px-5 py-3 rounded-xl hover:bg-white/5 transition-all duration-300"
+                                >
+                                    Company
+                                </Link>
+                            }
 
                             <div className="w-[1px] h-6 bg-white/10 mx-2" />
 
@@ -188,6 +202,15 @@ const Navbar = () => {
                         >
                             Pricing
                         </Link>
+
+                        {user?.email &&
+                            <Link
+                                href={`${dashboardLinks[user?.role || 'seeker']}`}
+                                className="text-[#D1D1D6] text-sm font-medium px-5 py-3 rounded-xl hover:bg-white/5 transition-all duration-300"
+                            >
+                                Company
+                            </Link>
+                        }
 
                         <div className="w-full h-[1px] bg-white/10 my-2" />
 
